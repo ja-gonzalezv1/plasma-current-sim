@@ -1,0 +1,98 @@
+# Analysis of results
+After we have finished all the calculations have been made, we should end up with an array of arrays of current density at each point inside of the plasma, for each moment in the simulation's time. This current densities will be the total current density, meaning the one that is induced by the central solenoid, as well as the one due to the bootstrap effect.  
+With these results, we can make a number of different analyses that can help us better understand some of the characteristics of the modeled bootstrap current. 
+
+## Current density distribution
+To start, we may make another current density heatmap, this time of data that also takes into account the bootstrap current. If we make this graph for the second moment in time (after the first moment with t = 0 s), which in this case would correspond to t = 12.24 s, we would get the following heatmap:  
+![Heatmap of total plasma current density](bootstrap/attachments/p-curr-first.png)  
+Notice the logarithmic scale in the colorbar that gives the magnitude of the current density.  
+
+A couple other things can be noted. Firstly, the magnitude of the current density. Compared to the current density we had found to be induced by the central solenoid, we can see that, even just after the first calculation of the bootstrap current, the magnitude of the current density has greatly increased. This goes to show that the bootstrap current can be a major driver of the plasma's current, and it can take it to great values. This fact will be seen in greater detail later on.  
+
+The other thing that can be noticed is the distribution of the current across the plasma's cross section. As can be seen, the majority of the current that is generated concentrates around the center of the plasma. Apart from the center point, at which there is no bootstrap current given that there would be no poloidal magnetic field, the points directly around it reach the highest values of current density, which quickly falls of to smaller values as distance to the center increases. This quick fall gets more noticeable as times goes on.  
+The way in which this can be understood is by analyzing the formula for the bootstrap current. Looking at it, we can notice that it is directly proportional to the magnitude of the pressure gradient, while being inversely proportional to the magnitude of the poloidal magnetic field. This is, ${ J_{ B } \propto \nabla p / B_{ p } }$.  
+The magnitude of the linear pressure gradient of our plasma is more or less the same for all points (${ n_{ 0 } / L }$ does not change too much with the direction from the center). So then the main difference between points will be the poloidal magnetic field in each of them. The closer a point is to the center of the plasma, the lesser the enclosed current will be for Ampère's law, which in turn will give a smaller poloidal field. Then, we can understand that points which are closer to the center of the plasma will have a greater bootstrap current in them.  
+
+As a last analysis of the current density, we can put together the many colormaps we can build for the different moments in time through the simulation. Putting them together into a video, we can get a result like:  
+![Video of current denisity as time changes](bootstrap/attachments/gif.mp4)  
+The first frame shows a current which is created only by the central solenoid. The next frame immediately shows the great change in the magnitude of the current density, once the bootstrap current takes into effect. We can also see in the beginning (during ramp-up phase) how as the magnitude of the current density increases (the colorbar shows greater numbers each time), the color around the borders of the plasma gets darker. This means that the current will not increase as much around the borders, and it again shows how the greater part of the bootstrap effect happens in the points near the center of the plasma.
+
+## Total plasma current
+The next analysis we can make is of how the total plasma current changes through time. If we have the current densities for each point inside of the plasma, we can get the total plasma current by adding all of these values together, and multiplying the result by the cross sectional area of the plasma.  
+Doing this for our simulation, we can then plot the obtained values of current (which would give one number per moment in time) against time. We can also do this same thing for the current that is induced by the central solenoid, to compare both. This would give the following graph:  
+![Graph of total plasma current vs time](bootstrap/attachments/t-curr-vs-cs.png)  
+
+More things can be noticed here. First is the great magnitude that the total plasma current reaches, compared to that of the current that is induced by the central solenoid. While we had found that the CS induced a current of around 3 MA in the plasma, here we can see that the total current now reaches values of around **100 MA**. This once again shows that the bootstrap current can greatly increase the total current that flows through the plasma.  
+
+Another thing that can be noticed is how the total plasma current increases constantly, even while the reactor has already entered the flat-top phase. This is because the bootstrap current only requires the plasma to have a pressure gradient and a poloidal magnetic field (which in itself requires a plasma current). Once these requirements have been met, the plasma starts generating its own current, hence the name bootstrap (as in the expression "pulling by the bootstraps") current, which compliments the previously existing one. 
+
+## Plasma bootstrap current
+The last type of analysis that can be made is of the bootstrap current alone. We can find this current by subtracting the current that is induced by the central solenoid to the total plasma current. Then, we can plot this result through time in a similar way to how it was done previously:  
+![Graph of bootstrap current vs time](bootstrap/attachments/b-curr-vs-cs.png)  
+As can be seen, the graph is very similar to the previous one (except this time not plotted logarithmically). It shows a (comparatively) small current that is induced by the CS, which first increases and then remains constant, along side a much greater bootstrap current, which keeps increasing until the end of the simulation. 
+
+### Fraction of total current
+We can make a more in-depth analysis of how big of an impact the bootstrap current is in the total plasma current, by calculating the total fraction of it that is due to this effect. We can easily do this if we divide the bootstrap current values over the total current.  
+If we do this for the last moment of the simulation, we find that **nearly 98% of the plasma current is bootstrap current**.  
+
+This is an important result, as it shows that the majority of the plasma current can be self generated, without the need of any constant external energy input. Once the central solenoid generates a current of a certain value, the plasma current can keep increasing without having to use any external systems.  
+The poloidal magnetic field, which is generated by the plasma's current, is crucial for the confinement and stability of the plasma. It is very good that this field can be increased and maintained by the plasma itself, as not having to input energy to do so will improve the overall energy balance of a tokamak reactor. Not only this, but a self generated poloidal magnetic field will also help to increase the duration of the plasma, allowing it to stay confined for a longer time. This will increase the time between plasma discharges, taking tokamaks closer to steady state devices.
+It will also be beneficial to the heating of the plasma, as long as ohmic heating is relevant in the system. The conduction of current in the plasma can help increase its temperature up to a certain value, which will help increase the fusion reaction rate, and increase the power output of the plasma. 
+
+### Decrease of bootstrap current
+Looking at graphs like the one above, it may seem like the bootstrap current (and with it the total plasma current) can keep increasing without any limits. However, analyzing the expression that gives the bootstrap current, we can see that this is not the case.  
+Looking at the formula, we can first notice that as long as neither the pressure gradient nor the magnetic field change directions, the direction of the bootstrap current will keep being the same. There is no reason for either of these things to happen, so we can know that the bootstrap current will always increase the total plasma current.  
+We can also remember that the magnitude of the bootstrap current decreases inversely with the magnitude of the poloidal magnetic field. The magnitude of this field in turn increases with the magnitude of the current density. In other words, as the total plasma current increases, the bootstrap current will decrease. This means that the bootstrap current may increase the current in the plasma to the point where the bootstrap effect will no longer be relevant to the current in the plasma.  
+
+Our simulations shows signs of this happening. If we take the difference in current from one moment to the other (meaning the gradient with `np-gradient`) near the end of the simulation, when the current is only increasing due to the bootstrap current, we can see that the amount it increases by is getting smaller each time. This makes it seem as if, if the simulation were to continue indefinitely, the increase in the bootstrap current would get so small that the total plasma current would level of at some value.  
+As will be seen below, this simulation has a number of limitations and shortcomings that make the obtention of this level-off value or time not worth while, as the obtained results may not be physically accurate or meaningful. 
+
+# Limitations and possible improvements
+While most of the results obtained in this simulation are in line with known physics and results that would be expected to be obtained from it, the simulation has a number of limitations and simplifications that prevent it from giving totally accurate results, results that could be expected from a real experiment.  
+
+## Physical inaccuracies
+Some of these inaccuracies, or rather lacks of total accuracy, are in the simulated physics. The main one is the expression that is used to calculate the bootstrap current. This expression is the same one of the diamagnetic current, that originates from the diamagnetic velocity drift ${ \vec{ v }_{ D }  }$, given like:
+$$
+\begin{align*}
+    \vec{ v } _{ D } &=  - \dfrac{ \vec{ \nabla } p \times \vec{ B }  }{ nq B^{ 2 } } 
+\end{align*}
+$$
+This expression is obtained by using the momentum equation for a two-fluid plasma. However, the derivation at some point required the fluid velocity to be perpendicular to both the pressure gradient ${ \vec{ \nabla } p }$ and the electric field ${ \vec{ E } }$. In our simulation, the fluid velocity (which is implicit in the direction of the current) is indeed perpendicular to the pressure gradient, but not to the electric field.  
+The presence of the original plasma current that is induced by the central solenoid means that there is an electric field driving that same current. As we saw in the physical explanation of the simulation, the electric field is related to the current (density) through the expression ${ \vec{ E } = \eta \vec{ J } }$. This means that the electric field present in the plasma will be parallel to the plasma current and thus to the fluid velocity, not perpendicular, as was assumed in the derivation of the utilized expression.  
+There is without a doubt a similar expression that can be obtained from the same analysis, without assuming a perpendicular electric field. However, it would not yield such a simple expression for the bootstrap current as the one that was used in the simulation. Thus, using a simplified expression in a situation which is not entirely simplified will create inaccuracies in the obtained results, however small they may be.  
+More accurate expressions can also be obtained for the bootstrap current by making a transport analysis for a plasma one-fluid. This analysis would be more physically accurate for a fusion plasma, and it would be more mathematically rigorous, yielding a "truer" formula. So making a simulation around one of these expression would also give more accurate results.  
+
+Another inaccuracy in the physics that is simulated is in the current induction of the CS. To calculate the induced current, we first calculate the magnetic field flux across a circular plasma loop with no thickness. We then proceed to give the plasma a cross sectional are, and use the same obtained results that were found for the plasma with no thickness.  
+Taking the thickness of the plasma into account would change the area used to calculate the flux, and with it the value of the induced current, although not by a lot. What I would expect to change significantly is the distribution of the current in the plasma cross section, and with it the particle distribution and cross sectional shape of the plasma. The position of the plasma the plasma inside of the vessel as well. 
+
+## Plasma simplifications
+The simulated plasma is also very simplified compared to a more real system. Some of these simplifications are made when giving values to the parameters of the plasma. The temperature of the plasma is set to be equal at all points inside of the plasma. This is obviously inaccurate, and a more precise modeling could be to make it higher where there is a greater concentration of particles. Doing this would also slightly change the expression of the pressure gradient (${ k_{ B } T \vec{ \nabla } n \to k_{ B } \left( T \vec{ \nabla } n + n \vec{ \nabla } T \right)   }$).  
+We have a similar situation with the fluid velocity. We had set it to be equal at all points inside of the plasma, so that the only variation in the current density was due to the particle density. It would be more accurate if this velocity was greater where there are fewer particles around, and vice versa. This would change the distribution of current density along the plasma cross section.  
+Other parameters and elements which are simplified are the permeability, as inside of the plasma it is taken as equal to the vacuum value, and the cross section of the plasma and vessel are taken to be elliptical, instead of a more realistic "D" shape. The small changes towards a more realistic case would produce more accurate results. Other simplifications are that the CS-induced current density are also assumed to be completely normal to the plasma cross section, as well as the bootstrap current density, which then also implies that the pressure gradient is in the same plane as the cross section. The last things are that the plasma is assumed to be exactly the same as the all along its main axis. Some of these are common and fair assumptions used to make the calculations more simple, but a real case could be different.  
+
+The other big simplifications of the simulated plasma is that no parameters (apart from its current density) change through time. The temperature of the plasma does not change in value, and the pressure gradient does not change magnitude or direction, meaning that the distribution of particles does not change either. This means that the plasma will be closer to a static conducting cable, than to a dynamic fluid, and so the obtained results will not entirely reflect what would be expected from an actual experiment.  
+To improve the simulation in this aspect, the code should instead solve the momentum equation of the plasma fluid, which is given like:
+$$
+\begin{align*}
+    \left( \vec{ u } \cdot \vec{ \nabla }  \right) \vec{ u } &= \dfrac{ q }{ m } \left( \vec{ E } + \vec{ u } \times \vec{ B }  \right) - \dfrac{ 1 }{ nm } \vec{ \nabla } p
+\end{align*}
+$$
+The equation that we solve for the bootstrap current is obtained from a simplification of this more general equation. Simulating the above equation instead, we could get dynamic values for the pressure gradient (from which we could get the particle gradient, and thus the distribution of the particles in the plasma), as well as values for the fluid velocity ${ \vec{ u } }$ for each species (from which we can get the current density, and from it the poloidal magnetic field) that evolve more like a fluid. From the obtained results we could also calculate the bootstrap current density, which in turn introduces changes to ${ \vec{ u } }$.  
+In total, a plasma simulated in this way would be more dynamical, as a simulation of this type is closer to what is expected for a fluid simulation.  
+
+<!-- TODO: do this improvement to the sim
+           create the corresponding repo (only explaining the changes with respect to this one)
+           and make a small part here saying that the changes were implemented, and link the repo --> 
+
+Other things that may change with time in reality is the cross sectional area and shape of the plasma, as well as its positioning within the vessel. These changes would have effects in the particle density and distribution of the plasma (and all other related quantities), and they would also be very important when wanting to study the interactions of the plasma with the vessel boundary. 
+
+## Code shortcomings
+The last thing I have noticed can be improved of this simulation is related to the way the physics is implemented in the code. In the simulation, some derivatives (derivative of the field flux) and integrals (integral for the field flux) are done. These could be improved by using more elaborate methods. The precision of the derivatives specifically could be improved by using three-point methods. Perhaps there is also a similar way to improve the precision of the integrals.  
+
+Apart from that, the main problem of the simulation is how the bootstrap current density is calculated and added to the general plasma current density. In the code, the bootstrap current is calculated for all the moments in time, and the result added to all later moments. If the total number of moments is increased (not necessarily increasing the total simulation time), then the bootstrap current is going to be calculated more times, and so added to the total current more times, increasing the obtained total plasma current.  
+This does not make sense physically, as there is no reason for the total plasma current to increase if the simulation time has not. Perhaps what the simulation (and physics) is missing is a set time interval between moments (a set length for the time steps). It would make sense if the plasma had a maximum frequency, similar to the plasma frequency, at which it could react to the diamagnetic drift. Then, we could create our time array so the length between moments is equal to this time, and then it would indeed make sense to calculate the bootstrap current at each of these moments.  
+Again, another thing which would help the simulation to make more physical sense would be to directly simulate the fluid's momentum equation. Through it, we could find the change through time of the fluid velocity, and with it we could properly find the value for the next moment in time. We would directly calculate the total plasma current (plus bootstrap) as time passes, instead of adding the bootstrap values to the CS-induced plasma current. 
+
+<!-- TODO: integrals and derivatives could be solved more rigorously
+            search for the names of the derivative and integral algorithm names and mention them 
+            maybe try to implement them (and rk4 if needed) for the fluid sim-->
