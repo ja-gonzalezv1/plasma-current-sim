@@ -9,7 +9,7 @@ At the end, we will analyze the plasma's current values during the experiment, c
 The simulation will be made for a plasma with a cross sectional radius ${ R_{ p } }$, with particle density ${ n }$, in a reactor with a central solenoid that can carry a maximum current of ${ I_{ \text{max} } }$, through a total length of time ${ T }$ . This will be the characteristic quantities that will be used to normalize all other related variables.  
 
 ## Central solenoid induction
-The first thing we need to do is to create a current profile for the central solenoid (CS). This profile needs to be such that we can induce a current into the plasma, make it climb to a certain value (this is the ramp-up phase), and then maintain it at that value during flat-top. The current ${ I_{ cs } }$ that we induce into the plasma will be proportional to the change in the magnetic flux created by the CS:
+The first thing we need to do is to create a current profile for the central solenoid (CS). This profile needs to be such that we can induce a current into the plasma, make it climb to a certain value (this is the ramp-up phase), and then maintain it at that value during flat-top. The current ${ I_{ cs } }$ that we induce into the plasma will be proportional to the change in the magnetic flux created by the CS:  
 $$
 \begin{align*}
     I_{ cs } &\propto -\dfrac{ d \Phi  }{ d t } 
