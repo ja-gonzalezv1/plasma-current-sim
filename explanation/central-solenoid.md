@@ -256,6 +256,6 @@ The same thing goes for the length and area of the plasma. Then, the plasma resi
 ### CS-induced plasma current 
 After all these calculations are made, we can finally find the current that is induced into the plasma by the central solenoid. With the dimensionless EMF, we just have to multiply by the corresponding dimension factor, and divide it over the plasma resistance to find the respective current.  
 For the system we have been describing thus far, the current that would be induced into the plasma would look like:
-![Graph showing the CS induced plasma current](bootstrap/attachments/cs-plasma-current.png)  
+![Graph showing the CS induced plasma current](../attachments/cs-plasma-current.png)  
 As can be seen, the current in the plasma increases linearly up to a certain value, in this case of around 3 MA, and then remains constant. This is what is meant by the names "ramp-up" and "flat-top".  
 Another thing that can be notices is that the central solenoid current profile is plotted as well, although it looks quite flat compared to the plasma current. This is the exact purpose of the central solenoid, and the reason why it may be heard that tokamak reactors are essentially electric transformers. A (relatively) small current flowing through the various loops of the central solenoid induces a much greater current in the single loop of plasma. 
