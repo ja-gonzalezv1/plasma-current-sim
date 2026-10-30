@@ -10,8 +10,8 @@ The physics that are simulated in the code are explained, as well as the thought
 
 ## Table of Contents:
 
-1. [Physical Explanation](~/explanation/physics.md):
-    1.1 [Overview](~/explanation/physics.md##overview) 
+1. [Physical Explanation](explanation/physics.md):  
+    1.1 [Overview](explanation/physics.md##overview)   
     1.2 [Central Solenoid Induction](bootstrap/explanation/physics.md##central-solenoid-induction) 
         1.2.1 [Central Solenoid Magnetic Field](bootstrap/explanation/physics.md###cs-magnetic-field) 
         1.2.2 [Field Flux](bootstrap/explanation/physics.md###field-flux) 
